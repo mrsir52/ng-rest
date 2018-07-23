@@ -12,21 +12,28 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    interface FetchData {
+    // Replace "FetchToken" with "GetData" to run http get
+    interface FetchToken {
       token: string;
 
     }
-    this.http.post<FetchData>('url', {
+    // HTTP get ( comment out this.http.post..... and uncomment the code below)
+    // You will also need to replace the url with the deisired url
+    // this.http.get<GetData>('url').subscribe(data => {
+    //   console.log("User Token: " + data.token);
+    // });
+    this.http.post<FetchToken>('url', {
       'movie': 'blah',
       'params': {
-        'company_email': 'email',
-        'company_phone': '(555) 555-5555',
-        'company_name': 'name',
+        'email': 'email',
+        'phone': '(555) 555-5555',
+        'name': 'name',
         'logo': 'www.logo'
       })
       .subscribe(data => {
         console.log('User Token: ' + data.token);
       });
+      // comment out to the line above to run http get
   }
 }
 
