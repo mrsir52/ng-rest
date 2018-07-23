@@ -1,10 +1,32 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
+  results = '';
+  constructor(private http: HttpClient){
+  }
+
+  ngOnInit(): void {
+    interface FetchData {
+      token: string;
+
+    }
+    this.http.post<FetchData>('url', {
+      'movie': 'blah',
+      'params': {
+        'company_email': 'email',
+        'company_phone': '(555) 555-5555',
+        'company_name': 'name',
+        'logo': 'www.logo'
+      })
+      .subscribe(data => {
+        console.log('User Token: ' + data.token);
+      });
+  }
 }
+
